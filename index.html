@@ -14,30 +14,17 @@
         display: block;
         text-align: center;
     }
-    .addTask-btn{
-        display: flex;
-        justify-content: center;
-        margin: 25px auto;
-        
-    }
-    #task-input{
-    width: 500px;
-    height: 40px;
+
+    #taskinput{
+    width: 400px;
+    height: 30px;
     border-radius: 10px; 
     padding: 3px;
     font-size: 20px;
-    background-color:#255bbe;
+    margin-left: 450px;
 
     }
-    .add{
-        height: 40px;
-        border-radius: 10px; 
-        margin-left: 20px;
-        margin-top: 5px;
-        font-size: 20px;
-        background-color:#255bbe;
-        color: white;
-    }
+    
     .containter{
         height: 30px;
         font-size: 25px;
@@ -63,13 +50,20 @@
         background-color:aqua;
         cursor: pointer;
     }
+    .addTask-btn{
+        cursor: pointer;
+        height: 40px;
+        background-color: antiquewhite;
+        border-radius: 3px;
+        border: none;
+    }
     </style>
 </head>
 <body>
      <h1 class="heading">Todo App</h1>
      <div id="addTask-btn">
                   <input id="taskinput" type="text"/>
-                  <button onclick="addTask()" >Add Task</button>
+                  <button class="addTask-btn" onclick="addTask()" >Add Task</button>
      </div>
      <div id="task-container">
 
