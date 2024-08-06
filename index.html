@@ -10,57 +10,123 @@
             padding: 0px;
             box-sizing: border-box;
         }
-        .heading{
-            text-align: center;
-        }
-        .todo-item{
-            border: 2px solid black;
-            padding: 8px;
-            margin: 10px;
-            border-radius: 4px;
-            background-color: rgb(189, 243, 243);
-            display: flex;
-            justify-content: space-between;
-        }
-        .delete-btn{
-            background-color: tomato;
-            color: white;
-            border-radius: 25px;
-            border: none;
-         
-        }
+        h1{
+        display: block;
+        text-align: center;
+    }
+    .addTask-btn{
+        display: flex;
+        justify-content: center;
+        margin: 25px auto;
+        
+    }
+    #task-input{
+    width: 500px;
+    height: 40px;
+    border-radius: 10px; 
+    padding: 3px;
+    font-size: 20px;
+    background-color:#255bbe;
+
+    }
+    .add{
+        height: 40px;
+        border-radius: 10px; 
+        margin-left: 20px;
+        margin-top: 5px;
+        font-size: 20px;
+        background-color:#255bbe;
+        color: white;
+    }
+    .containter{
+        height: 30px;
+        font-size: 25px;
+        border: 2px solid black;
+        padding-top: 10px;
+        margin-top: 10px;
+        border-radius: 15px;
+         background-color:#80c0e5;
+         color: white;
+         display: flex;
+         justify-content: space-between;
+         padding: 8px 6px;
+        
+    }
+    .btn{
+        height: 25px;
+        width: 80px;
+        margin-right: 25px;
+        margin-left: 10px;
+        background-color:white;
+        border-radius: 7px;
+        border: none;
+        background-color:aqua;
+        cursor: pointer;
+    }
     </style>
 </head>
 <body>
      <h1 class="heading">Todo App</h1>
-     <div id="tasks-container">
+     <div id="addTask-btn">
+                  <input id="taskinput" type="text"/>
+                  <button onclick="addTask()" >Add Task</button>
+     </div>
+     <div id="task-container">
 
      </div>
      <script>
-        const TaskList=["go to gym","go to college","buy vegetable" ,"revise local storage"];
-         
-        function taskloder(){
-            const TaskContainer = document.getElementById("tasks-container");
-            TaskContainer.innerHTML = "";
-            
-            for(const task of TaskList){
-                TaskContainer.innerHTML +=
-            `
-              <div class="todo-item">
-                ${task}
-                <button class="delete-btn">delete</button>
-              </div> 
-            `
+     
+    const tasks = [];
+
+    function loadFromLocalStorage(){
+        const allTasks = JSON.parse(localStorage.getItem('allTasks'));
+
+        if(allTasks){
+            tasks.push(...allTasks)
+        }
+        loadTasks();
+    }
+    loadFromLocalStorage();
+
+    function loadTasks (){
+      localStorage.setItem('allTasks', JSON.stringify(tasks));
+
+        const taskcontainer = document.getElementById(`task-container`);
+        taskcontainer.innerHTML = ``;
+
+        for(const task of tasks)
+        {
+            taskcontainer.innerHTML += `
+            <div class = "containter">
+                
+                 ${task}
+                <button class = "btn" onclick = "deletatsk('${task}')">
+                            delete
+                    </button>
+                </div>
+                `
+        }
+          }
+          
+        function deletatsk(task){
+             const taskindex = tasks.indexOf(task);
+             tasks.splice(taskindex, 1);
+             loadTasks();
+        }
+  
+        function addTask(){
+            const taskinputElement = document.getElementById("taskinput");
+            const task = taskinputElement.value;
+            if(!task){
+                alert("enter a task");
+                return;
             }
+            tasks.push(task);
+            loadTasks();
+            taskinputElement.value = '';
         }
-        taskloder();
-
-        function deleteItem(task){
-                  const taskindex=TaskList.indexOf(task);
-                  TaskList.splice(taskindex,1);
-
-                  taskloder();
-        }
+    
+    
      </script>
 </body>
 </html>
